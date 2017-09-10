@@ -1,0 +1,9 @@
+# Macbook
+.DS_Store
+
+# Byte-compiled files
+*.pyc
+
+# Distribution / Packaging
+env/
+
