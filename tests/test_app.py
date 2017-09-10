@@ -17,7 +17,6 @@ def client():
     api = get_app()
     return testing.TestClient(api)
 
-
 def test_post_movies(client):
     doc = {"movie": "spiderman"}
 
@@ -28,3 +27,12 @@ def test_post_movies(client):
     )
     assert response.status == falcon.HTTP_OK
     assert json.loads(response.content) == doc
+
+def test_post_movies_invalid_json(client):
+
+    response = client.simulate_post(
+        '/',
+        body='{"movies": ["spiderman", "batman",]}',
+        headers={'content-type': 'application/json'}
+    )
+    assert response.status == falcon.HTTP_400
