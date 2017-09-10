@@ -5,3 +5,12 @@
 :author: Miranda Aperghis <miranda>
 :contact: miranda.aperghis@gmail.com
 """
+import falcon
+from stan_coding_challenge.movies import Resource
+
+
+def get_app():
+    movie_resource = Resource()
+    api = falcon.API()
+    api.add_route('/', movie_resource)
+    return api
