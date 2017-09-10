@@ -10,12 +10,15 @@ from falcon import HTTPError
 import falcon.status_codes as status
 
 
-class MyHTTPBadRequest(HTTPError):
+class MyHTTPError(HTTPError):
 
     INVALID_JSON = "Could not decode request: JSON parsing failed"
+    MISSING_PAYLOAD = "Could not decode request: JSON missing payload key"
+    UNSUPPORTED_MEDIA_TYPE = "Unsupported media type: Only JSON accepted"
 
-    def __init__(self, title=None, description=None, errorMsg=None, **kwargs):
-        super(MyHTTPBadRequest, self).__init__(status.HTTP_400, title,
+    def __init__(self, title=None, description=None, errorMsg=None,
+                    status=status.HTTP_400, **kwargs):
+        super(MyHTTPError, self).__init__(status, title,
                                                 description, **kwargs)
         self.errorMsg = errorMsg
 
