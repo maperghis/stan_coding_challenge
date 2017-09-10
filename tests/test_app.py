@@ -10,6 +10,7 @@ from falcon import testing
 import json
 from stan_coding_challenge.app import get_app
 import pytest
+from stan_coding_challenge.errors import MyHTTPBadRequest
 
 
 @pytest.fixture
@@ -36,3 +37,7 @@ def test_post_movies_invalid_json(client):
         headers={'content-type': 'application/json'}
     )
     assert response.status == falcon.HTTP_400
+    error = "Could not decode request: JSON parsing failed"
+    json_content = json.loads(response.content)
+    assert 'error' in json_content
+    assert json_content['error'] == MyHTTPBadRequest.INVALID_JSON

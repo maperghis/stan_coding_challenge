@@ -7,6 +7,7 @@
 """
 import falcon
 import json
+from stan_coding_challenge.errors import MyHTTPBadRequest
 
 
 class Resource(object):
@@ -26,11 +27,9 @@ class Resource(object):
 class MovieHandler(object):
 
     def filter(self, data):
-        print data
         try:
             doc = json.load(data)
             return doc
         except ValueError:
-            desc = '{"error": "Could not decode request: JSON parsing failed"}'
-            raise falcon.HTTPBadRequest(description=desc,
-                headers={'content_type': falcon.MEDIA_JSON})
+            desc = MyHTTPBadRequest.INVALID_JSON
+            raise MyHTTPBadRequest(errorMsg=desc)
