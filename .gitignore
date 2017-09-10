@@ -7,3 +7,4 @@
 # Distribution / Packaging
 env/
 
+.cache/

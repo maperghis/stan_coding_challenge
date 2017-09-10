@@ -6,6 +6,7 @@
 :contact: miranda.aperghis@gmail.com
 """
 import falcon
+import json
 
 
 class Resource(object):
@@ -14,4 +15,8 @@ class Resource(object):
         pass
 
     def on_post(self, req, resp):
-        pass
+        resp.status = falcon.HTTP_OK
+        if req.content_length:
+            doc = json.load(req.stream)
+            resp.data = json.dumps(doc)
+        resp.content_type = falcon.MEDIA_JSON

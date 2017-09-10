@@ -26,5 +26,5 @@ def test_post_movies(client):
         body=json.dumps(doc),
         headers={'content-type': 'application/json'}
     )
-    assert response.status == falcon.HTTP_CREATED
-    assert json.loads(response.body) == doc
+    assert response.status == falcon.HTTP_OK
+    assert json.loads(response.content) == doc
