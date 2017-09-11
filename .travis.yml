@@ -1,0 +1,12 @@
+language: python
+install: true
+python:
+  - "2.7"
+notifications:
+  email: false
+before_install:
+  - export PYTHONPATH=$PYTHONPATH:`pwd`
+install:
+  - pip install -r requirements.txt
+script:
+  - pytest tests
