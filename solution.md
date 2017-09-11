@@ -2,12 +2,12 @@
 
 ## Language
 I implemented the simple web app in Python for the follow reasons:
-1. Python is by far my **strongest** language
-2. Very easy to get something up and running quickly
+1. Python is by far my **strongest** language.
+2. Very easy to get something up and running quickly.
 3. The module **json** provides easy methods to move back and forth between
-json and string representations of the object
+json and string representations of the object.
 4. The **filter** method is a powerful way of filtering python *dicts* or
-*lists* in one line implementations
+*lists* in one line implementations.
 
 ## Framework
 When deciding upon a backend framework I first considered Django. No doubt,
