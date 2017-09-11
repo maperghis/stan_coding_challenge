@@ -31,7 +31,7 @@ class Resource(object):
         if 'application/json' not in req.content_type:
             desc = MyHTTPError.UNSUPPORTED_MEDIA_TYPE
             raise MyHTTPError(errorMsg=desc, status=status.HTTP_415)
-        resp.status = falcon.HTTP_OK
+        resp.status = falcon.HTTP_200
         resp.content_type = falcon.MEDIA_JSON
         if req.content_length:
             data = req.stream

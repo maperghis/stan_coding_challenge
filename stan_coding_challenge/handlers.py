@@ -30,6 +30,7 @@ class MovieHandler(BaseJsonHandler):
         """
         try:
             data = json.load(data, encoding='utf-8')
+            print "data", data
             assert isinstance(data, dict)
             payload = data["payload"]
             return self.processPayload(payload)
