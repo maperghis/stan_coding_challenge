@@ -35,7 +35,8 @@ class MovieHandler(BaseJsonHandler):
             return self.processPayload(payload)
         except (KeyError, AttributeError):
             return {}
-        except (ValueError):
+        except (ValueError) as exc:
+            print exc
             desc = MyHTTPError.INVALID_JSON
             raise MyHTTPError(errorMsg=desc)
 
