@@ -17,7 +17,6 @@ class MyHTTPError(HTTPError):
 
     INVALID_JSON = "Could not decode request: JSON parsing failed"
     UNSUPPORTED_MEDIA_TYPE = "Could not decode request: Unsupported media type, only JSON accepted"
-    NO_MEDIA_TYPE = "Could not decode request: No media type specified"
 
     def __init__(self, title=None, description=None, errorMsg=None,
                     status=status.HTTP_400, **kwargs):
