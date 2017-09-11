@@ -26,10 +26,8 @@ class Resource(object):
         :param resp: HTTP response
         """
         print "content type:", req.content_type, type(req.content_type)
-        # if not req.content_type:
-        #     desc = MyHTTPError.NO_MEDIA_TYPE
-        #     raise MyHTTPError(errorMsg=desc, status=status.HTTP_400)
-        if 'application/json' not in req.content_type:
+        if req.content_type and 'application/json' not in str(req.content_type):
+            # content type given and it is not application/json
             desc = MyHTTPError.UNSUPPORTED_MEDIA_TYPE
             raise MyHTTPError(errorMsg=desc, status=status.HTTP_415)
         resp.status = falcon.HTTP_200
