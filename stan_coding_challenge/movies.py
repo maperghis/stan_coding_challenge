@@ -25,6 +25,7 @@ class Resource(object):
         :param req: HTTP request
         :param resp: HTTP response
         """
+        print "content type:", req.content_type
         if not req.content_type:
             desc = MyHTTPError.NO_MEDIA_TYPE
             raise MyHTTPError(errorMsg=desc, status=status.HTTP_400)
