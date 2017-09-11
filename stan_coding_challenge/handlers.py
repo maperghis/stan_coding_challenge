@@ -29,7 +29,7 @@ class MovieHandler(BaseJsonHandler):
         :rtype: <dict>
         """
         try:
-            data = json.load(data)
+            data = json.loads(data, encoding='utf-8')
             assert isinstance(data, dict)
             payload = data["payload"]
             return self.processPayload(payload)
