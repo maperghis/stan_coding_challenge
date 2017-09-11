@@ -6,10 +6,15 @@
 :contact: miranda.aperghis@gmail.com
 """
 import falcon
-from stan_coding_challenge.movies import Resource, MovieHandler
+from stan_coding_challenge.handlers import MovieHandler
+from stan_coding_challenge.movies import Resource
 
 
 def create_app(jsonFilter):
+    """Create resource and app instances for hosting
+    :return: falcon API app
+    :rtype: <falcon.api.API>
+    """
     movie_resource = Resource(jsonFilter)
     api = falcon.API()
     api.add_route('/', movie_resource)
@@ -17,5 +22,9 @@ def create_app(jsonFilter):
 
 
 def get_app():
+    """Configure app for hosting
+    :return: falcon API app
+    :rtype: <falcon.api.API>
+    """
     jsonHandler = MovieHandler()
     return create_app(jsonHandler)

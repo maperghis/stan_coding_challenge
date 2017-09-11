@@ -11,6 +11,9 @@ import falcon.status_codes as status
 
 
 class MyHTTPError(HTTPError):
+    """Type of HTTPError which takes an error message when creating an
+    instance of this error and overrides the to_dict method to display the
+    given error"""
 
     INVALID_JSON = "Could not decode request: JSON parsing failed"
     MISSING_PAYLOAD = "Could not decode request: JSON missing payload key"
@@ -23,6 +26,10 @@ class MyHTTPError(HTTPError):
         self.errorMsg = errorMsg
 
     def to_dict(self, obj_type=dict):
+        """Override the to_dict method to return only the error key
+        :return: error message
+        :rtype: <dict>
+        """
         obj = obj_type()
         if self.errorMsg is not None:
             obj['error'] = self.errorMsg
