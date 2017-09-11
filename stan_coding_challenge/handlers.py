@@ -33,11 +33,11 @@ class MovieHandler(BaseJsonHandler):
             assert isinstance(data, dict)
             payload = data["payload"]
             return self.processPayload(payload)
-        except (ValueError, AssertionError):
-            desc = MyHTTPError.INVALID_JSON
-            raise MyHTTPError(errorMsg=desc)
         except KeyError:
             desc = MyHTTPError.MISSING_PAYLOAD
+            raise MyHTTPError(errorMsg=desc)
+        except (ValueError, AssertionError, AttributeError):
+            desc = MyHTTPError.INVALID_JSON
             raise MyHTTPError(errorMsg=desc)
 
     def processPayload(self, payload):

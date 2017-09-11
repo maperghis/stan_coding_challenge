@@ -54,11 +54,23 @@ def test_post_movies_invalid_json(client):
     assert 'error' in json_content
     assert json_content['error'] == MyHTTPError.INVALID_JSON
 
-def test_post_movies_invalid_json(client):
-    """Test POST invalid json"""
+def test_post_movies_invalid_json2(client):
+    """Test POST invalid json, list not a dict"""
     response = client.simulate_post(
         '/',
         body='[]',
+        headers={'content-type': 'application/json'}
+    )
+    assert response.status == falcon.HTTP_400
+    json_content = json.loads(response.content)
+    assert 'error' in json_content
+    assert json_content['error'] == MyHTTPError.INVALID_JSON
+
+def test_post_movies_invalid_json3(client):
+    """Test POST invalid json, payload has a dict not a list of movies"""
+    response = client.simulate_post(
+        '/',
+        body='{"payload": [["a", "b"]]}',
         headers={'content-type': 'application/json'}
     )
     assert response.status == falcon.HTTP_400
