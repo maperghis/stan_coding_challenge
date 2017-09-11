@@ -30,13 +30,11 @@ class MovieHandler(BaseJsonHandler):
         """
         try:
             data = json.loads(data, encoding='utf-8')
-            print "data in handler:", data
             payload = data["payload"]
             return self.processPayload(payload)
         except (KeyError, AttributeError):
             return {}
         except (ValueError) as exc:
-            print exc
             desc = MyHTTPError.INVALID_JSON
             raise MyHTTPError(errorMsg=desc)
 

@@ -92,10 +92,9 @@ def test_post_movies_empty_content_type(client):
     """Test POST empty content type"""
     response = client.simulate_post(
         '/',
-        body='{"movies": ["spiderman", "batman",]}',
+        body='{}',
         headers={'content-type': ''}
     )
-    assert response.status == falcon.HTTP_400
+    assert response.status == falcon.HTTP_200
     json_content = json.loads(response.content)
-    assert 'error' in json_content
-    assert json_content['error'] == MyHTTPError.NO_MEDIA_TYPE
+    assert json_content == {}
