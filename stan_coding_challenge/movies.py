@@ -25,15 +25,15 @@ class Resource(object):
         :param req: HTTP request
         :param resp: HTTP response
         """
+        if not req.content_type:
+            desc = MyHTTPError.NO_MEDIA_TYPE
+            raise MyHTTPError(errorMsg=desc, status=status.HTTP_400)
         if 'application/json' not in req.content_type:
             desc = MyHTTPError.UNSUPPORTED_MEDIA_TYPE
             raise MyHTTPError(errorMsg=desc, status=status.HTTP_415)
         resp.status = falcon.HTTP_OK
         resp.content_type = falcon.MEDIA_JSON
-        try:
-            raw = req.stream.read(req.content_length or 0)
-        except Exception as exc:
-            desc = MyHTTPError.INVALID_JSON
-            raise MyHTTPError(errorMsg=desc)
-        doc = self._jsonHandler.filter(raw)
-        resp.data = json.dumps(doc, encoding='utf-8')
+        if req.content_length:
+            data = req.stream
+            doc = self._jsonHandler.filter(data)
+            resp.data = json.dumps(doc, encoding='utf-8')

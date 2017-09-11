@@ -37,7 +37,7 @@ def test_post_movies(client):
         body=json.dumps(req_data),
         headers={'content-type': 'application/json'}
     )
-    assert response.status == falcon.HTTP_OK
+    assert response.status == falcon.HTTP_200
     data_received = json.loads(response.content)
     assert set(data_received) == set(resp_data)
     assert data_received['response'] == resp_data['response']
@@ -101,3 +101,15 @@ def test_post_movies_unsupported_type(client):
     json_content = json.loads(response.content)
     assert 'error' in json_content
     assert json_content['error'] == MyHTTPError.UNSUPPORTED_MEDIA_TYPE
+
+def test_post_movies_empty_content_type(client):
+    """Test POST empty content type"""
+    response = client.simulate_post(
+        '/',
+        body='{"movies": ["spiderman", "batman",]}',
+        headers={'content-type': ''}
+    )
+    assert response.status == falcon.HTTP_400
+    json_content = json.loads(response.content)
+    assert 'error' in json_content
+    assert json_content['error'] == MyHTTPError.NO_MEDIA_TYPE

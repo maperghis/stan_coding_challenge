@@ -29,7 +29,7 @@ class MovieHandler(BaseJsonHandler):
         :rtype: <dict>
         """
         try:
-            data = json.loads(data, encoding='utf-8')
+            data = json.load(data, encoding='utf-8')
             assert isinstance(data, dict)
             payload = data["payload"]
             return self.processPayload(payload)
@@ -37,7 +37,7 @@ class MovieHandler(BaseJsonHandler):
             desc = MyHTTPError.MISSING_PAYLOAD
             raise MyHTTPError(errorMsg=desc)
         # except (ValueError, AssertionError, AttributeError):
-        except Exception:
+        except Exception as exc:
             desc = MyHTTPError.INVALID_JSON
             raise MyHTTPError(errorMsg=desc)
 
