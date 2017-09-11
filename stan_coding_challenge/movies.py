@@ -17,7 +17,7 @@ class Resource(object):
         self._jsonHandler = jsonHandler
 
     def on_post(self, req, resp):
-        if req.content_type != falcon.MEDIA_JSON:
+        if 'application/json' not in req.content_type:
             desc = MyHTTPError.UNSUPPORTED_MEDIA_TYPE
             raise MyHTTPError(errorMsg=desc, status=status.HTTP_415)
         resp.status = falcon.HTTP_OK
