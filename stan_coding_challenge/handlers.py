@@ -36,7 +36,8 @@ class MovieHandler(BaseJsonHandler):
         except KeyError:
             desc = MyHTTPError.MISSING_PAYLOAD
             raise MyHTTPError(errorMsg=desc)
-        except (ValueError, AssertionError, AttributeError):
+        # except (ValueError, AssertionError, AttributeError):
+        except Exception:
             desc = MyHTTPError.INVALID_JSON
             raise MyHTTPError(errorMsg=desc)
 
