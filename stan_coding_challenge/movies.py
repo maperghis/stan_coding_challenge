@@ -30,11 +30,7 @@ class Resource(object):
             raise MyHTTPError(errorMsg=desc, status=status.HTTP_415)
         resp.status = falcon.HTTP_OK
         resp.content_type = falcon.MEDIA_JSON
-        try:
-            if req.content_length:
-                data = req.stream
-                doc = self._jsonHandler.filter(data)
-                resp.data = json.dumps(doc)
-        except Exception:
-            desc = MyHTTPError.INVALID_JSON
-            raise MyHTTPError(errorMsg=desc)
+        if req.content_length:
+            data = req.stream
+            doc = self._jsonHandler.filter(data)
+            resp.data = json.dumps(doc)
