@@ -24,6 +24,7 @@ def client():
     return testing.TestClient(api)
 
 def test_post_movies(client):
+    """Test POST valid json"""
     request_file = os.path.join(RESOURCES_DIR, 'request.json')
     with open(request_file) as fd:
         req_data = json.load(fd)
@@ -42,14 +43,37 @@ def test_post_movies(client):
     assert data_received['response'] == resp_data['response']
 
 def test_post_movies_invalid_json(client):
-
+    """Test POST invalid json"""
     response = client.simulate_post(
         '/',
         body='{"movies": ["spiderman", "batman",]}',
         headers={'content-type': 'application/json'}
     )
     assert response.status == falcon.HTTP_400
-    error = "Could not decode request: JSON parsing failed"
     json_content = json.loads(response.content)
     assert 'error' in json_content
     assert json_content['error'] == MyHTTPError.INVALID_JSON
+
+def test_post_movies_no_payload(client):
+    """Test POST no payload"""
+    response = client.simulate_post(
+        '/',
+        body='{"movies": ["spiderman", "batman"]}',
+        headers={'content-type': 'application/json'}
+    )
+    assert response.status == falcon.HTTP_400
+    json_content = json.loads(response.content)
+    assert 'error' in json_content
+    assert json_content['error'] == MyHTTPError.MISSING_PAYLOAD
+
+def test_post_movies_unsupported_type(client):
+    """Test POST unsupported content type"""
+    response = client.simulate_post(
+        '/',
+        body='{"movies": ["spiderman", "batman",]}',
+        headers={'content-type': 'image/png'}
+    )
+    assert response.status == falcon.HTTP_415
+    json_content = json.loads(response.content)
+    assert 'error' in json_content
+    assert json_content['error'] == MyHTTPError.UNSUPPORTED_MEDIA_TYPE
