@@ -37,7 +37,7 @@ The app is deployed using [Heroku](https://devcenter.heroku.com/) at
 https://stan-movie-filter.herokuapp.com/.
 
 ### Testing the Remote App
-Using [HTTPie](http://httpie.org/)
+Using [HTTPie](http://httpie.org/) to send requests to the URL.
 
 1. Post resources/request.json to receive
 HTTP 200 OK with filtered JSON response.
@@ -69,12 +69,12 @@ pip install -r requirements.txt
 ```
 
 ### Run App Locally
-Start app.
+1. Start app.
 ```shell
 gunicorn --reload ''stan_coding_challenge.app:get_app()''
 ```
 
-Post resources/request.json to local URL.
+2. Post resources/request.json to local URL.
 ```shell
 http POST localhost:8000/ Content-Type:image/png < resources/request.json
 ```

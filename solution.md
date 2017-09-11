@@ -1,20 +1,20 @@
 # My Solution
 
 ## Language
-I chose to implement the simple web app in Python for a number of reasons:
-1. python is by far my **strongest** language
-2. very easy to get something up and running quickly
-3. **json** package provides easy methods to move back and forth between json
-and string representations of the object
-4. **filter** method is a powerful way of filtering python *dicts* or *lists*
-in one line implementations
+I implemented the simple web app in Python for the follow reasons:
+1. Python is by far my **strongest** language
+2. Very easy to get something up and running quickly
+3. The module **json** provides easy methods to move back and forth between
+json and string representations of the object
+4. The **filter** method is a powerful way of filtering python *dicts* or
+*lists* in one line implementations
 
 ## Framework
 When deciding upon a backend framework I first considered Django. No doubt,
 Django is the most popular framework with its batteries included and automatic
 database generation features. However I felt that there must be something a bit
-simpler for such a lightweight web app. The app really only has one job to do,
-and it doesn't have a backend database or frontend, so I began looking for
+simpler and lightweight for my web app. My app really only has one job to do,
+it doesn't have a backend database or frontend, so I began looking for
 something that is as fast as possible, without any bloat.
 
 Online I found [Python's Web Framework Benchmarks](http://klen.github.io/py-frameworks-bench/)
@@ -50,8 +50,8 @@ tests to pass.
 I might implement a way of preventing people from overloading my system. I
 would need to find out who is sending the request and how many they have been
 sending. Ideas for backing off could be to implement some exponential fall off
-which says the first time over the limit you make them wait x seconds, then
-x^2. Start small so users who make a mistake aren't really punished, but
-malicious users are really held back. Use the HTTP 429 Too Many Requests
-response, and also send a Retry-After header which tells them how long until
-they can retry.
+which says the first time over the limit you make them wait 2 * 100
+milliseconds, then 2^2 * 100, then 2^3 * 100, etc. Start small so users who
+make a mistake aren't really punished, but malicious users are really held
+back. Use the HTTP 429 Too Many Requests response, and also send a Retry-After
+header which tells them how long until they can retry.
