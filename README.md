@@ -1,5 +1,7 @@
 # Stan Coding Challenge
 Welcome to the Solution to the [Stan Coding Challenge](https://challengeaccepted.streamco.com.au/)!
+Please read [My Solution](solution.md) for reasonings behind my choice of
+language and framework.
 
 ## The Challenge
 Receive a post request with some JSON data to my given URL, filter the data and
