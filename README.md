@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/maperghis/stan_coding_challenge.svg?branch=master)](https://travis-ci.org/maperghis/stan_coding_challenge)
 # Stan Coding Challenge
 Welcome to the Solution to the [Stan Coding Challenge](https://challengeaccepted.streamco.com.au/)!
 Please read [My Solution](solution.md) for reasonings behind my choice of
