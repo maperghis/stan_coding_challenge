@@ -10,7 +10,7 @@ from falcon import testing
 import json
 from stan_coding_challenge.app import get_app
 import pytest
-from stan_coding_challenge.errors import MyHTTPBadRequest
+from stan_coding_challenge.errors import MyHTTPError
 import os
 
 
@@ -39,22 +39,17 @@ def test_post_movies(client):
     assert response.status == falcon.HTTP_OK
     data_received = json.loads(response.content)
     assert set(data_received) == set(resp_data)
-    for a in data_received['response']:
-        print a
-    print "------"
-    for a in resp_data['response']:
-        print a
     assert data_received['response'] == resp_data['response']
 
-# def test_post_movies_invalid_json(client):
-#
-#     response = client.simulate_post(
-#         '/',
-#         body='{"movies": ["spiderman", "batman",]}',
-#         headers={'content-type': 'application/json'}
-#     )
-#     assert response.status == falcon.HTTP_400
-#     error = "Could not decode request: JSON parsing failed"
-#     json_content = json.loads(response.content)
-#     assert 'error' in json_content
-#     assert json_content['error'] == MyHTTPBadRequest.INVALID_JSON
+def test_post_movies_invalid_json(client):
+
+    response = client.simulate_post(
+        '/',
+        body='{"movies": ["spiderman", "batman",]}',
+        headers={'content-type': 'application/json'}
+    )
+    assert response.status == falcon.HTTP_400
+    error = "Could not decode request: JSON parsing failed"
+    json_content = json.loads(response.content)
+    assert 'error' in json_content
+    assert json_content['error'] == MyHTTPError.INVALID_JSON
