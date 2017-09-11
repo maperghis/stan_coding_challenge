@@ -16,7 +16,6 @@ class MyHTTPError(HTTPError):
     given error"""
 
     INVALID_JSON = "Could not decode request: JSON parsing failed"
-    MISSING_PAYLOAD = "Could not decode request: JSON missing payload key"
     UNSUPPORTED_MEDIA_TYPE = "Could not decode request: Unsupported media type, only JSON accepted"
     NO_MEDIA_TYPE = "Could not decode request: No media type specified"
 

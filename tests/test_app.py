@@ -54,41 +54,27 @@ def test_post_movies_invalid_json(client):
     assert 'error' in json_content
     assert json_content['error'] == MyHTTPError.INVALID_JSON
 
-def test_post_movies_invalid_json2(client):
-    """Test POST invalid json, list not a dict"""
-    response = client.simulate_post(
-        '/',
-        body='[]',
-        headers={'content-type': 'application/json'}
-    )
-    assert response.status == falcon.HTTP_400
-    json_content = json.loads(response.content)
-    assert 'error' in json_content
-    assert json_content['error'] == MyHTTPError.INVALID_JSON
-
-def test_post_movies_invalid_json3(client):
-    """Test POST invalid json, payload has a dict not a list of movies"""
+def test_post_movies_valid_json_not_correct_type(client):
+    """Test POST valid json, payload has a dict not a list of movies"""
     response = client.simulate_post(
         '/',
         body='{"payload": [["a", "b"]]}',
         headers={'content-type': 'application/json'}
     )
-    assert response.status == falcon.HTTP_400
+    assert response.status == falcon.HTTP_200
     json_content = json.loads(response.content)
-    assert 'error' in json_content
-    assert json_content['error'] == MyHTTPError.INVALID_JSON
+    assert json_content == {}
 
-def test_post_movies_no_payload(client):
-    """Test POST no payload"""
+def test_post_movies_empty_data(client):
+    """Test POST empty data"""
     response = client.simulate_post(
         '/',
-        body='{"movies": ["spiderman", "batman"]}',
+        body='{}',
         headers={'content-type': 'application/json'}
     )
-    assert response.status == falcon.HTTP_400
+    assert response.status == falcon.HTTP_200
     json_content = json.loads(response.content)
-    assert 'error' in json_content
-    assert json_content['error'] == MyHTTPError.MISSING_PAYLOAD
+    assert json_content == {}
 
 def test_post_movies_unsupported_type(client):
     """Test POST unsupported content type"""

@@ -31,14 +31,11 @@ class MovieHandler(BaseJsonHandler):
         try:
             data = json.load(data, encoding='utf-8')
             print "data", data
-            assert isinstance(data, dict)
             payload = data["payload"]
             return self.processPayload(payload)
-        except KeyError:
-            desc = MyHTTPError.MISSING_PAYLOAD
-            raise MyHTTPError(errorMsg=desc)
-        # except (ValueError, AssertionError, AttributeError):
-        except Exception as exc:
+        except (KeyError, AttributeError):
+            return {}
+        except (ValueError):
             desc = MyHTTPError.INVALID_JSON
             raise MyHTTPError(errorMsg=desc)
 
