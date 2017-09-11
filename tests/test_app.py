@@ -54,6 +54,18 @@ def test_post_movies_invalid_json(client):
     assert 'error' in json_content
     assert json_content['error'] == MyHTTPError.INVALID_JSON
 
+def test_post_movies_invalid_json(client):
+    """Test POST invalid json"""
+    response = client.simulate_post(
+        '/',
+        body='[]',
+        headers={'content-type': 'application/json'}
+    )
+    assert response.status == falcon.HTTP_400
+    json_content = json.loads(response.content)
+    assert 'error' in json_content
+    assert json_content['error'] == MyHTTPError.INVALID_JSON
+
 def test_post_movies_no_payload(client):
     """Test POST no payload"""
     response = client.simulate_post(
