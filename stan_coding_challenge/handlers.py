@@ -29,8 +29,8 @@ class MovieHandler(BaseJsonHandler):
         :rtype: <dict>
         """
         try:
-            data = json.load(data, encoding='utf-8')
-            print "data", data
+            data = json.loads(data, encoding='utf-8')
+            print "data in handler:", data
             payload = data["payload"]
             return self.processPayload(payload)
         except (KeyError, AttributeError):

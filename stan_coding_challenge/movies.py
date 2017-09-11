@@ -33,7 +33,7 @@ class Resource(object):
             raise MyHTTPError(errorMsg=desc, status=status.HTTP_415)
         resp.status = falcon.HTTP_200
         resp.content_type = falcon.MEDIA_JSON
-        if req.content_length:
-            data = req.stream
-            doc = self._jsonHandler.filter(data)
-            resp.data = json.dumps(doc, encoding='utf-8')
+        data = req.stream.read(req.content_length or 0)
+        print "data in resource:", data
+        doc = self._jsonHandler.filter(data)
+        resp.data = json.dumps(doc, encoding='utf-8')
