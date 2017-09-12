@@ -41,7 +41,7 @@ has a movie in it called "The Taste (Le GoÃ»t)". In the example
 [response.json file](https://challengeaccepted.streamco.com.au/samples/response.json)
 the title expected for this movie is "The Taste". At first I thought that this
 was an encoding issue however this doesn't account for the extra letters. I
-assummed that it was a mistake and changed the title to "The Taste" to get my
+assumed that it was a mistake and changed the title to "The Taste" to get my
 tests to pass.
 
 ## Future Features
